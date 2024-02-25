@@ -1,6 +1,8 @@
+import 'package:adv_basics/answer_button.dart';
 import 'package:flutter/material.dart';
+import 'package:adv_basics/data/questions.dart';
 
-class QuestionsScreen extends StatefulWidget{
+class QuestionsScreen extends StatefulWidget {
   const QuestionsScreen({super.key});
   @override
   State<StatefulWidget> createState() {
@@ -8,10 +10,43 @@ class QuestionsScreen extends StatefulWidget{
   }
 }
 
-class _QuestionsScreenState extends State<QuestionsScreen>{
+class _QuestionsScreenState extends State<QuestionsScreen> {
+  var index = 0;
+  void onTab() {
+    setState(() {
+      index = index == (questions.length - 1) ? 0 : index + 1;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-   return const Text("Questions Screen");
+    final currentQuestion = questions[index];
+
+    return SizedBox(
+      width: double.infinity,
+      child: Container(
+        margin: const EdgeInsets.all(40),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              currentQuestion.text,
+              style: const TextStyle(color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            ...currentQuestion.answers.map((answer) {
+              return AnswerButton(
+                text: answer,
+                onTab: onTab,
+              );
+            })
+          ],
+        ),
+      ),
+    );
   }
 }
