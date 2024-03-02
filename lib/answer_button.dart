@@ -6,7 +6,7 @@ class AnswerButton extends StatelessWidget {
   final String text;
   final void Function() onTab;
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     return ElevatedButton(
       onPressed: onTab,
       style: ElevatedButton.styleFrom(
